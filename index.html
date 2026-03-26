@@ -534,6 +534,35 @@
     height: 4px;
     background: linear-gradient(90deg, var(--crimson-deep), var(--crimson-bright) 40%, var(--gold) 70%, var(--gold-light) 100%);
   }
+    /* Mobile Optimizations */
+  @media (max-width: 600px) {
+    body {
+      padding: 10px;
+    }
+
+    .poster {
+      max-width: 100%;
+      border-radius: 0; /* Full-bleed look on mobile */
+    }
+
+    /* Scaling the watermark so it doesn't overflow */
+    .logo-watermark {
+      width: 80%;
+      height: auto;
+      top: 40%;
+    }
+
+    /* If you have large titles (h1, h2), scale them down */
+    h1 {
+      font-size: 3.5rem !important;
+      letter-spacing: 1px !important;
+    }
+
+    .details-row {
+      flex-direction: column; /* Stack side-by-side items vertically */
+      gap: 10px;
+    }
+  }
 </style>
 </head>
 <body>
