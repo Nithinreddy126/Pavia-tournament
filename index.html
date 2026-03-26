@@ -22,6 +22,11 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+   img, video, canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  
   body {
     background: var(--charcoal);
     font-family: 'Barlow', sans-serif;
@@ -534,6 +539,20 @@
     height: 4px;
     background: linear-gradient(90deg, var(--crimson-deep), var(--crimson-bright) 40%, var(--gold) 70%, var(--gold-light) 100%);
   }
+
+    @media (max-width: 600px) {
+    body {
+      padding: 10px;
+    }
+    .poster {
+      padding: 15px;
+    }
+    .logo-watermark {
+      width: 80% !important;
+      height: auto;
+    }
+  }
+
 </style>
 </head>
 <body>
