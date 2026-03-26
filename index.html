@@ -344,6 +344,8 @@
     color: var(--white);
     text-shadow: 0 1px 8px rgba(0,0,0,0.5);
     line-height: 1.1;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .vs-badge {
@@ -544,10 +546,12 @@
   @media (max-width: 768px) {
     body {
       padding: 10px;
+      overflow-x: hidden;
     }
 
     .poster {
       max-width: 100%;
+      overflow: hidden;
     }
 
     .header {
@@ -615,8 +619,12 @@
     }
 
     .match-card {
-      grid-template-columns: 70px 1fr auto;
+      grid-template-columns: 70px 1fr;
       margin-bottom: 4px;
+    }
+
+    .match-right {
+      display: none;
     }
 
     .match-time-strip {
@@ -634,23 +642,32 @@
     .match-center {
       padding: 10px 12px;
       gap: 8px;
+      min-width: 0;
     }
 
     .match-num {
       font-size: 8px;
+      white-space: nowrap;
+    }
+
+    .match-teams {
+      min-width: 0;
+      flex-wrap: wrap;
     }
 
     .team-name {
       font-size: 16px;
+      min-width: 0;
     }
 
     .vs-badge {
       font-size: 12px;
       padding: 2px 5px;
+      flex-shrink: 0;
     }
 
     .knockout-card {
-      grid-template-columns: 70px 1fr auto;
+      grid-template-columns: 70px 1fr;
       margin-bottom: 4px;
     }
 
@@ -668,6 +685,7 @@
 
     .knockout-center {
       padding: 10px 12px;
+      min-width: 0;
     }
 
     .knockout-label {
@@ -676,6 +694,7 @@
 
     .knockout-matchup {
       font-size: 14px;
+      word-break: break-word;
     }
 
     .knockout-card:last-child .knockout-matchup {
@@ -728,6 +747,11 @@
   @media (max-width: 480px) {
     body {
       padding: 8px;
+      overflow-x: hidden;
+    }
+
+    .poster {
+      overflow: hidden;
     }
 
     .header {
@@ -756,6 +780,10 @@
       grid-template-columns: 60px 1fr;
     }
 
+    .match-right {
+      display: none;
+    }
+
     .match-time-strip {
       padding: 8px 6px;
     }
@@ -764,13 +792,27 @@
       font-size: 18px;
     }
 
+    .match-center {
+      padding: 8px 10px;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .match-teams {
+      min-width: 0;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
     .team-name {
       font-size: 14px;
+      min-width: 0;
     }
 
     .vs-badge {
       font-size: 10px;
       padding: 1px 4px;
+      flex-shrink: 0;
     }
 
     .knockout-card {
@@ -779,6 +821,7 @@
 
     .knockout-matchup {
       font-size: 12px;
+      word-break: break-word;
     }
 
     .knockout-card:last-child .knockout-matchup {
