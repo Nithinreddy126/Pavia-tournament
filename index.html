@@ -2,9 +2,84 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Pavia Cricket Tournament 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script>
+/* ============================================================
+   ✏️  EASY EDIT ZONE — Change all tournament data here
+   ============================================================ */
+
+const CONFIG = {
+
+  /* --- Tournament Info --- */
+  tournamentName: "Pavia Cricket Tournament",
+  year: "2026",
+  date: "April 4, 2026",
+  sport: "Cricket",
+
+  /* --- Logo: paste a URL or a base64 data URI --- */
+  /* Using the uploaded logo image */
+  logoSrc: "IMG_4607.jpeg",   // ← set to "" to hide logo
+
+  /* --- Teams (used for filter dropdown) --- */
+  teams: [
+    "Pavia Falcons",
+    "Underdogs",
+    "MM Blasters",
+    "Novie Luigi",
+    "Torino Thunders",
+    "Bologna"
+  ],
+
+  /* --- Group Stage Matches --- */
+  groupMatches: [
+    { time: "7:30", period: "AM", num: "01", team1: "Pavia Falcons",   team2: "Underdogs"       },
+    { time: "8:30", period: "AM", num: "02", team1: "MM Blasters",     team2: "Novie Luigi"     },
+    { time: "9:30", period: "AM", num: "03", team1: "Torino Thunders", team2: "Underdogs"       },
+    { time: "10:30",period: "AM", num: "04", team1: "Bologna",         team2: "MM Blasters"     },
+    { time: "11:30",period: "AM", num: "05", team1: "Pavia Falcons",   team2: "Torino Thunders" },
+    { time: "12:30",period: "PM", num: "06", team1: "Bologna",         team2: "Novie Luigi"     }
+  ],
+
+  /* --- Knockout Stage Matches --- */
+  knockoutMatches: [
+    { time: "1:40", period: "PM", label: "Semi-Final 1",  matchup: "Group A (1st) vs Group B (2nd)", isFinal: false },
+    { time: "2:40", period: "PM", label: "Semi-Final 2",  matchup: "Group B (1st) vs Group A (2nd)", isFinal: false },
+    { time: "4:00", period: "PM", label: "⚡ Grand Final", matchup: "Winner SF1 vs Winner SF2",       isFinal: true  }
+  ],
+
+  /* --- Notes shown at bottom of schedule --- */
+  notes: [
+    "All teams must arrive at least 30 minutes before their scheduled match",
+    "Strict timing is essential — delays will not be accommodated"
+  ],
+
+  /* --- Match Rules (shown in collapsible accordion) --- */
+  rules: [
+    "Rules will not be changed during the match. Only a captain should speak for a team. If any other team member speaks, a 5-run penalty will be added to the opposing team — umpire's decision.",
+    "8 overs per side. Only three bowlers can bowl a maximum of 2 overs each. All other bowlers can bowl a maximum of 1 over.",
+    "1st over is power play. During the power play, only two fielders are allowed outside the inner circle.",
+    "1 run per wide, 1 run per no ball. Second bounce will be given as a wide — called only by the leg umpire.",
+    "Free hit for no ball. Free hit for above-hips no ball. 1 run will be given for both cases.",
+    "No leg byes, no byes — only overthrows are allowed.",
+    "Boundaries will be explained on field with the captain.",
+    "Umpire's decision is final. One player from each team must participate as umpire.",
+    "Playing '8' (your playing XI) must be declared to the umpire and scorers before the game.",
+    "The '8's cannot be changed during the match. If a team qualifies for the finals, the captain may change the '8's for the final only.",
+    "If the ball hits the electric line, the whole pole, or its base — it is a dead ball.",
+    "Overthrows are allowed. If the ball goes behind the wickets on an overthrow, extra runs plus the overthrow are added.",
+    "If the ball touches the bat and goes behind the wickets, one run is declared.",
+    "In case of a big deflection (bounce or low ball), it is at the umpire's discretion to call a dead ball."
+  ]
+
+};
+/* ============================================================
+   End of Edit Zone
+   ============================================================ */
+</script>
+
 <style>
   :root {
     --crimson: #C0001A;
@@ -22,48 +97,36 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  img, video, canvas {
-    max-width: 100%;
-    height: auto;
-  }
-  
   body {
-    background: var(--charcoal);
+    background: #0e0e0e;
     font-family: 'Barlow', sans-serif;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 20px;
+    padding: 20px 12px 60px;
   }
 
   .poster {
     width: 100%;
-    max-width: 900px;
+    max-width: 860px;
     background: linear-gradient(160deg, #111111 0%, #1c1c1e 30%, #111111 60%, #0d0d0d 100%);
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(200,168,75,0.3);
-    box-shadow: 0 0 0 1px rgba(200,168,75,0.15), 0 40px 120px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.05);
+    box-shadow: 0 0 0 1px rgba(200,168,75,0.1), 0 40px 120px rgba(0,0,0,0.9);
   }
 
   .poster::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(ellipse at 20% 30%, rgba(192,0,26,0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 70%, rgba(192,0,26,0.05) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(200,168,75,0.04) 0%, transparent 70%);
+    background-image:
+      radial-gradient(ellipse at 20% 30%, rgba(192,0,26,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 70%, rgba(192,0,26,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(200,168,75,0.04) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
-  }
-
-  .logo-watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 480px;
-    height: 480px;
-    opacity: 0.06;
   }
 
   .accent-lines {
@@ -72,7 +135,6 @@
     pointer-events: none;
     z-index: 0;
   }
-
   .accent-lines::after {
     content: '';
     position: absolute;
@@ -80,284 +142,345 @@
     right: 30px;
     width: 1px;
     height: 200%;
-    background: linear-gradient(180deg, transparent, rgba(200,168,75,0.25), transparent);
+    background: linear-gradient(180deg, transparent, rgba(200,168,75,0.2), transparent);
     transform: rotate(-15deg);
   }
 
-  .content {
-    position: relative;
-    z-index: 1;
+  .content { position: relative; z-index: 1; }
+
+  /* TOP BAR */
+  .top-bar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--crimson-deep), var(--crimson-bright) 40%, var(--gold) 70%, var(--gold-light) 100%);
   }
 
   /* HEADER */
   .header {
-    padding: 36px 40px 28px;
+    padding: 28px 36px 22px;
     border-bottom: 1px solid rgba(200,168,75,0.2);
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 24px;
   }
-
   .header-logo {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
     filter: drop-shadow(0 4px 20px rgba(192,0,26,0.4));
     flex-shrink: 0;
+    border-radius: 6px;
   }
-
-  .header-text { flex: 1; }
-  .header-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 4px; }
-  .header-title { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 0.9; letter-spacing: 2px; color: var(--white); text-shadow: 0 0 40px rgba(192,0,26,0.3); }
+  .header-logo-placeholder {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    background: rgba(200,168,75,0.1);
+    border: 2px dashed rgba(200,168,75,0.3);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+  }
+  .header-text { flex: 1; min-width: 0; }
+  .header-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 4px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 2px;
+  }
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 8vw, 68px);
+    line-height: 0.9; letter-spacing: 2px;
+    color: var(--white);
+    text-shadow: 0 0 40px rgba(192,0,26,0.3);
+  }
   .header-title span { color: var(--crimson-bright); }
-  .header-year { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--gold); letter-spacing: 6px; line-height: 1.1; }
-
-  .header-meta { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
-  .meta-pill { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--charcoal); background: var(--gold); padding: 4px 12px; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-  .meta-info { font-size: 12px; color: var(--silver); letter-spacing: 1px; }
-
-  /* INNINGS BREAK */
-  .innings-break { background: linear-gradient(90deg, rgba(192,0,26,0.15), rgba(192,0,26,0.08), transparent); border-left: 3px solid var(--crimson-bright); padding: 10px 40px; display: flex; align-items: center; gap: 12px; }
-  .innings-icon { width: 20px; height: 20px; background: var(--crimson-bright); clip-path: polygon(50% 0%, 100% 100%, 0% 100%); flex-shrink: 0; }
-  .innings-text { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--crimson-bright); }
-  .innings-val { color: var(--platinum); font-weight: 400; }
+  .header-year {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 46px);
+    color: var(--gold); letter-spacing: 6px; line-height: 1.1;
+  }
+  .header-meta { display: flex; align-items: center; gap: 12px; margin-top: 6px; flex-wrap: wrap; }
+  .meta-pill {
+    font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--charcoal);
+    background: var(--gold); padding: 3px 10px;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .meta-info { font-size: 11px; color: var(--silver); letter-spacing: 0.5px; }
 
   /* SECTIONS */
-  .section { padding: 0 40px 8px; }
-  .section-header { display: flex; align-items: center; gap: 0; padding: 18px 0 12px; }
-  .section-tag { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--white); padding: 6px 20px 6px 0; position: relative; }
+  .section { padding: 0 36px 6px; }
+  .section-header { display: flex; align-items: center; gap: 0; padding: 16px 0 10px; }
+  .section-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 3px;
+    color: var(--white); padding: 5px 16px 5px 0;
+  }
   .section-tag.knockout { color: var(--gold); }
   .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.15), transparent); }
   .section-tag.knockout + .section-line { background: linear-gradient(90deg, rgba(200,168,75,0.3), transparent); }
 
   /* MATCH CARD */
-  .match-card { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 0; padding: 0; margin-bottom: 6px; position: relative; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.02); overflow: hidden; transition: all 0.2s ease; }
+  .match-card {
+    display: grid;
+    grid-template-columns: 82px 1fr 8px;
+    align-items: stretch;
+    margin-bottom: 5px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.02);
+    overflow: hidden;
+    transition: background 0.2s;
+  }
   .match-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(200,168,75,0.2); }
 
-  .match-time-strip { background: linear-gradient(180deg, rgba(192,0,26,0.25), rgba(192,0,26,0.12)); border-right: 2px solid var(--crimson); padding: 14px 16px; text-align: center; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .match-time { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--white); line-height: 1; letter-spacing: 1px; }
-  .match-ampm { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--crimson-bright); text-transform: uppercase; margin-top: 1px; }
+  .match-time-strip {
+    background: linear-gradient(180deg, rgba(192,0,26,0.22), rgba(192,0,26,0.1));
+    border-right: 2px solid var(--crimson);
+    padding: 12px 10px;
+    text-align: center;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .match-time { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--white); line-height: 1; }
+  .match-ampm { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: var(--crimson-bright); text-transform: uppercase; margin-top: 1px; }
 
-  .match-center { padding: 12px 20px; display: flex; align-items: center; gap: 12px; }
-  .match-num { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); white-space: nowrap; opacity: 0.7; }
-  .match-teams { display: flex; align-items: center; gap: 10px; flex: 1; }
-  .team-name { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; color: var(--white); text-shadow: 0 1px 8px rgba(0,0,0,0.5); line-height: 1.1; word-break: break-word; overflow-wrap: break-word; }
-  .vs-badge { font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--crimson-bright); letter-spacing: 1px; background: rgba(192,0,26,0.15); border: 1px solid rgba(192,0,26,0.3); padding: 2px 7px; flex-shrink: 0; }
-  .match-right { width: 8px; height: 100%; background: linear-gradient(180deg, var(--crimson-deep), transparent); opacity: 0.4; flex-shrink: 0; }
+  .match-center { padding: 10px 16px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
+  .match-num { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); opacity: 0.7; }
+  .match-teams { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .team-name { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(14px, 3vw, 21px); font-weight: 900; text-transform: uppercase; color: var(--white); line-height: 1.1; }
+  .vs-badge {
+    font-family: 'Bebas Neue', sans-serif; font-size: 13px;
+    color: var(--crimson-bright); letter-spacing: 1px;
+    background: rgba(192,0,26,0.15);
+    border: 1px solid rgba(192,0,26,0.3);
+    padding: 1px 6px; flex-shrink: 0;
+  }
+  .match-right { background: linear-gradient(180deg, var(--crimson-deep), transparent); opacity: 0.4; }
 
-  /* KNOCKOUT CARD */
-  .knockout-card { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 0; margin-bottom: 6px; border: 1px solid rgba(200,168,75,0.15); background: rgba(200,168,75,0.04); overflow: hidden; }
-  .knockout-card:last-child { border-color: rgba(200,168,75,0.35); background: rgba(200,168,75,0.08); }
+  /* KNOCKOUT */
+  .knockout-card {
+    display: grid;
+    grid-template-columns: 82px 1fr;
+    align-items: stretch;
+    margin-bottom: 5px;
+    border: 1px solid rgba(200,168,75,0.15);
+    background: rgba(200,168,75,0.04);
+    overflow: hidden;
+  }
+  .knockout-card.is-final { border-color: rgba(200,168,75,0.35); background: rgba(200,168,75,0.08); }
 
-  .knockout-time-strip { background: linear-gradient(180deg, rgba(200,168,75,0.25), rgba(200,168,75,0.08)); border-right: 2px solid var(--gold); padding: 16px; text-align: center; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .knockout-time { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--gold-light); line-height: 1; letter-spacing: 1px; }
-  .knockout-ampm { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-top: 1px; }
+  .knockout-time-strip {
+    background: linear-gradient(180deg, rgba(200,168,75,0.22), rgba(200,168,75,0.07));
+    border-right: 2px solid var(--gold);
+    padding: 14px 10px;
+    text-align: center;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .knockout-time { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--gold-light); line-height: 1; }
+  .knockout-ampm { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-top: 1px; }
 
-  .knockout-center { padding: 14px 20px; }
-  .knockout-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
-  .knockout-card:last-child .knockout-label { color: var(--gold-light); font-size: 11px; }
-  .knockout-matchup { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--platinum); letter-spacing: 0.5px; }
-  .knockout-card:last-child .knockout-matchup { font-size: 19px; color: var(--white); }
+  .knockout-center { padding: 12px 16px; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+  .knockout-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+  .knockout-card.is-final .knockout-label { color: var(--gold-light); font-size: 11px; }
+  .knockout-matchup { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: var(--platinum); letter-spacing: 0.5px; }
+  .knockout-card.is-final .knockout-matchup { font-size: 18px; color: var(--white); }
 
   /* NOTES */
-  .notes-section { margin: 12px 40px 0; padding: 14px 20px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+  .notes-section {
+    margin: 10px 36px 0;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 6px 20px;
+  }
   .note-item { display: flex; align-items: flex-start; gap: 8px; }
   .note-dot { width: 4px; height: 4px; background: var(--crimson-bright); border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
-  .note-text { font-size: 11px; color: var(--silver); line-height: 1.5; letter-spacing: 0.3px; }
+  .note-text { font-size: 11px; color: var(--silver); line-height: 1.5; }
 
-  /* FOOTER */
-  .footer { padding: 16px 40px 28px; display: flex; align-items: center; justify-content: space-between; margin-top: 16px; border-top: 1px solid rgba(200,168,75,0.15); }
-  .footer-flags { display: flex; gap: 8px; align-items: center; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: var(--silver); letter-spacing: 1px; }
-  .flag-emoji { font-size: 20px; }
-  .footer-logo { width: 50px; height: 50px; object-fit: contain; opacity: 0.7; }
-  .footer-tagline { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px; color: rgba(200,168,75,0.5); text-align: right; }
-
-  .top-bar { height: 4px; background: linear-gradient(90deg, var(--crimson-deep), var(--crimson-bright) 40%, var(--gold) 70%, var(--gold-light) 100%); }
-
-  /* CONTROL PANEL */
-  .control-panel {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: rgba(45, 45, 50, 0.95);
-    border: 1px solid rgba(200, 168, 75, 0.4);
-    border-radius: 8px;
-    padding: 12px;
-    gap: 10px;
-    display: flex;
-    flex-direction: column;
-    z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    min-width: 220px;
-  }
-
-  .control-panel label {
-    font-size: 11px;
+  /* RULES ACCORDION */
+  .rules-section { margin: 14px 36px 0; }
+  .rules-toggle {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(200,168,75,0.12), rgba(200,168,75,0.04));
+    border: 1px solid rgba(200,168,75,0.3);
+    border-radius: 0;
+    color: var(--gold-light);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--gold);
+    letter-spacing: 3px;
     text-transform: uppercase;
-  }
-
-  .control-panel select {
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(200, 168, 75, 0.3);
-    border-radius: 4px;
-    color: var(--white);
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
+    padding: 12px 18px;
     cursor: pointer;
-  }
-
-  .control-panel select option {
-    background: #1a1a1a;
-    color: var(--white);
-  }
-
-  .button-group {
     display: flex;
-    gap: 8px;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.2s;
+  }
+  .rules-toggle:hover { background: linear-gradient(90deg, rgba(200,168,75,0.2), rgba(200,168,75,0.08)); }
+  .rules-toggle-icon {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    color: var(--gold);
+  }
+  .rules-toggle.open .rules-toggle-icon { transform: rotate(180deg); }
+
+  .rules-body {
+    display: none;
+    border: 1px solid rgba(200,168,75,0.15);
+    border-top: none;
+    background: rgba(0,0,0,0.3);
+    padding: 16px 18px;
+  }
+  .rules-body.open { display: block; }
+
+  .rule-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    color: var(--gold);
+    min-width: 22px;
+    line-height: 1.3;
+  }
+  .rule-text {
+    font-size: 12px;
+    color: var(--platinum);
+    line-height: 1.6;
+    flex: 1;
   }
 
-  .export-btn {
-    padding: 10px;
-    background: linear-gradient(135deg, var(--crimson), var(--crimson-bright));
-    border: 1px solid var(--gold);
-    border-radius: 4px;
+  /* FILTER BAR */
+  .filter-bar {
+    margin: 14px 36px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .filter-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--silver);
+    white-space: nowrap;
+  }
+  .filter-select {
+    flex: 1;
+    min-width: 180px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,168,75,0.25);
     color: var(--white);
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(192, 0, 26, 0.3);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C8A84B' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
   }
-
-  .export-btn:hover {
-    background: linear-gradient(135deg, var(--crimson-bright), var(--crimson));
-    box-shadow: 0 6px 16px rgba(192, 0, 26, 0.5);
+  .filter-select option { background: #1a1a1a; color: var(--white); }
+  .filter-clear-btn {
+    padding: 8px 14px;
+    background: rgba(192,0,26,0.15);
+    border: 1px solid rgba(192,0,26,0.3);
+    color: var(--crimson-bright);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
   }
+  .filter-clear-btn:hover { background: rgba(192,0,26,0.3); }
 
-  .export-btn.gold {
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: var(--charcoal);
-    border-color: var(--gold-light);
-    box-shadow: 0 4px 12px rgba(200, 168, 75, 0.3);
+  /* FOOTER */
+  .footer {
+    padding: 14px 36px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    border-top: 1px solid rgba(200,168,75,0.15);
+    flex-wrap: wrap;
+    gap: 8px;
   }
+  .footer-flags { display: flex; gap: 8px; align-items: center; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: var(--silver); letter-spacing: 1px; }
+  .flag-emoji { font-size: 20px; }
+  .footer-tagline { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px; color: rgba(200,168,75,0.5); }
 
-  .export-btn.gold:hover {
-    background: linear-gradient(135deg, var(--gold-light), var(--gold));
-    box-shadow: 0 6px 16px rgba(200, 168, 75, 0.5);
-  }
-
+  /* HIDDEN */
   .match-card.hidden,
-  .knockout-card.hidden {
-    display: none;
-  }
+  .knockout-card.hidden { display: none; }
 
-  @media (max-width: 768px) {
-    body { padding: 8px; overflow-x: hidden; flex-direction: column; align-items: center; }
-    .poster { max-width: 100%; overflow: hidden; }
-    .header { padding: 16px 12px 12px; gap: 12px; flex-direction: column; text-align: center; align-items: center; }
-    .header-logo { width: 70px; height: 70px; flex-shrink: 0; }
-    .header-text { flex: 1; width: 100%; }
-    .header-title { font-size: 36px; line-height: 1; letter-spacing: 2px; margin: 4px 0; }
-    .header-year { font-size: 28px; line-height: 1.1; margin: 4px 0; }
-    .header-label { line-height: 1.2; margin-bottom: 2px; }
-    .header-meta { flex-direction: column; gap: 6px; margin-top: 6px; width: 100%; align-items: center; }
-    .meta-pill { font-size: 8px; padding: 3px 10px; line-height: 1.2; }
-    .meta-info { font-size: 10px; line-height: 1.3; }
-    .section { padding: 0 12px 6px; margin-bottom: 2px; }
-    .section-header { padding: 10px 0 6px; align-items: center; }
-    .section-tag { font-size: 16px; line-height: 1.1; padding: 4px 10px 4px 0; margin: 0; }
-    .match-card { grid-template-columns: 65px 1fr; margin: 0 0 3px 0; padding: 0; align-items: stretch; }
-    .match-right { display: none; }
-    .match-time-strip { padding: 8px 6px; align-items: center; justify-content: center; gap: 2px; }
-    .match-time { font-size: 18px; line-height: 1; margin: 0; }
-    .match-ampm { font-size: 7px; line-height: 1; margin: 2px 0 0 0; }
-    .match-center { padding: 8px 10px; gap: 6px; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
-    .match-num { font-size: 7px; line-height: 1.1; margin: 0; opacity: 0.6; }
-    .team-name { font-size: 15px; line-height: 1.1; min-width: 0; margin: 0; }
-    .vs-badge { font-size: 11px; padding: 2px 4px; flex-shrink: 0; line-height: 1; }
-    .knockout-card { grid-template-columns: 65px 1fr; margin: 0 0 3px 0; align-items: stretch; }
-    .knockout-matchup { font-size: 13px; line-height: 1.2; word-break: break-word; margin: 0; }
-    .footer { padding: 10px 12px 12px; gap: 6px; flex-wrap: wrap; justify-content: center; align-items: center; }
-    .control-panel {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 1000;
-      width: auto;
-      min-width: 180px;
-      max-width: calc(100% - 20px);
-      border-radius: 8px;
-      margin: 0;
-    }
-  }
+  /* ========================
+     MOBILE
+  ======================== */
+  @media (max-width: 600px) {
+    body { padding: 8px 8px 40px; }
 
-  @media (max-width: 480px) {
-    body { padding: 6px; overflow-x: hidden; }
-    .header { padding: 12px 10px 10px; gap: 10px; }
-    .header-logo { width: 60px; height: 60px; }
-    .header-title { font-size: 30px; }
-    .header-year { font-size: 24px; }
-    .match-card { grid-template-columns: 55px 1fr; margin-bottom: 2px; }
-    .team-name { font-size: 13px; }
-    .control-panel {
-      position: fixed;
-      top: 8px;
-      right: 8px;
-      z-index: 1000;
-      width: auto;
-      min-width: 160px;
-      max-width: calc(100% - 16px);
-      border-radius: 8px;
-      margin: 0;
-    }
+    .header { padding: 16px 14px 14px; gap: 14px; flex-wrap: wrap; }
+    .header-logo, .header-logo-placeholder { width: 72px; height: 72px; }
+    .header-text { min-width: 0; }
+
+    .section { padding: 0 14px 4px; }
+    .rules-section { margin: 10px 14px 0; }
+    .filter-bar { margin: 10px 14px 0; }
+    .notes-section { margin: 8px 14px 0; }
+    .footer { padding: 10px 14px 16px; }
+
+    .match-card { grid-template-columns: 62px 1fr 6px; }
+    .match-time { font-size: 19px; }
+    .match-ampm { font-size: 8px; }
+    .match-center { padding: 8px 10px; }
+    .team-name { font-size: 14px; }
+    .vs-badge { font-size: 11px; padding: 1px 5px; }
+
+    .knockout-card { grid-template-columns: 62px 1fr; }
+    .knockout-time { font-size: 19px; }
+    .knockout-matchup { font-size: 13px; }
   }
 
   @media print {
     body { background: white; padding: 0; }
-    .control-panel { display: none; }
-    .poster { max-width: 100%; box-shadow: none; border: none; background: white; }
-    .poster::before, .accent-lines, .logo-watermark { display: none; }
-    .content { background: white; }
+    .filter-bar, .rules-section { display: none; }
+    .poster { max-width: 100%; box-shadow: none; border: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- CONTROL PANEL -->
-<div class="control-panel">
-  <label for="team-selector">Select Team (Optional)</label>
-  <select id="team-selector">
-    <option value="">All Teams - Full Schedule</option>
-  </select>
-</div>
-
-<div class="poster">
+<div class="poster" id="poster">
   <div class="top-bar"></div>
-  <div class="logo-watermark"></div>
   <div class="accent-lines"></div>
 
   <div class="content">
 
-    <!-- HEADER -->
-    <div class="header">
-      <img class="header-logo" src="https://via.placeholder.com/110" alt="Pavia Cricket Logo">
-      <div class="header-text">
-        <div class="header-label">Tournament</div>
-        <div class="header-title">Pavia <span>Cricket</span></div>
-        <div class="header-year">2026</div>
-        <div class="header-meta">
-          <div class="meta-pill">Cricket</div>
-          <div class="meta-info">🗓️ April 4, 2026</div>
-        </div>
-      </div>
+    <!-- HEADER (built by JS) -->
+    <div class="header" id="header"></div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <span class="filter-label">Filter by team:</span>
+      <select class="filter-select" id="team-filter">
+        <option value="">All teams</option>
+      </select>
+      <button class="filter-clear-btn" onclick="clearFilter()">Show All</button>
     </div>
 
     <!-- GROUP STAGE -->
@@ -366,48 +489,7 @@
         <div class="section-tag">Group Stage</div>
         <div class="section-line"></div>
       </div>
-
-      <!-- Match 1 -->
-      <div class="match-card">
-        <div class="match-time-strip"><div class="match-time">7:30</div><div class="match-ampm">AM</div></div>
-        <div class="match-center"><div class="match-num">Match 01</div><div class="match-teams"><div class="team-name">Pavia Falcons</div><div class="vs-badge">VS</div><div class="team-name">Underdogs</div></div></div>
-        <div class="match-right"></div>
-      </div>
-
-      <!-- Match 2 -->
-      <div class="match-card">
-        <div class="match-time-strip"><div class="match-time">8:30</div><div class="match-ampm">AM</div></div>
-        <div class="match-center"><div class="match-num">Match 02</div><div class="match-teams"><div class="team-name">MM Blasters</div><div class="vs-badge">VS</div><div class="team-name">Novie Luigi</div></div></div>
-        <div class="match-right"></div>
-      </div>
-
-      <!-- Match 3 -->
-      <div class="match-card">
-        <div class="match-time-strip"><div class="match-time">9:30</div><div class="match-ampm">AM</div></div>
-        <div class="match-center"><div class="match-num">Match 03</div><div class="match-teams"><div class="team-name">Torino Thunders</div><div class="vs-badge">VS</div><div class="team-name">Underdogs</div></div></div>
-        <div class="match-right"></div>
-      </div>
-
-      <!-- Match 4 -->
-      <div class="match-card">
-        <div class="match-time-strip"><div class="match-time">10:30</div><div class="match-ampm">AM</div></div>
-        <div class="match-center"><div class="match-num">Match 04</div><div class="match-teams"><div class="team-name">Bologna</div><div class="vs-badge">VS</div><div class="team-name">MM Blasters</div></div></div>
-        <div class="match-right"></div>
-      </div>
-
-      <!-- Match 5 -->
-      <div class="match-card">
-        <div class="match-time-strip"><div class="match-time">11:30</div><div class="match-ampm">AM</div></div>
-        <div class="match-center"><div class="match-num">Match 05</div><div class="match-teams"><div class="team-name">Pavia Falcons</div><div class="vs-badge">VS</div><div class="team-name">Torino Thunders</div></div></div>
-        <div class="match-right"></div>
-      </div>
-
-      <!-- Match 6 -->
-      <div class="match-card">
-        <div class="match-time-strip"><div class="match-time">12:30</div><div class="match-ampm">PM</div></div>
-        <div class="match-center"><div class="match-num">Match 06</div><div class="match-teams"><div class="team-name">Bologna</div><div class="vs-badge">VS</div><div class="team-name">Novie Luigi</div></div></div>
-        <div class="match-right"></div>
-      </div>
+      <div id="group-matches"></div>
     </div>
 
     <!-- KNOCKOUT STAGE -->
@@ -416,30 +498,19 @@
         <div class="section-tag knockout">🏆 Knockout Stage</div>
         <div class="section-line"></div>
       </div>
-
-      <!-- SF1 -->
-      <div class="knockout-card">
-        <div class="knockout-time-strip"><div class="knockout-time">1:40</div><div class="knockout-ampm">PM</div></div>
-        <div class="knockout-center"><div class="knockout-label">Semi-Final 1</div><div class="knockout-matchup">Group A (1st) vs Group B (2nd)</div></div>
-      </div>
-
-      <!-- SF2 -->
-      <div class="knockout-card">
-        <div class="knockout-time-strip"><div class="knockout-time">2:40</div><div class="knockout-ampm">PM</div></div>
-        <div class="knockout-center"><div class="knockout-label">Semi-Final 2</div><div class="knockout-matchup">Group B (1st) vs Group A (2nd)</div></div>
-      </div>
-
-      <!-- Final -->
-      <div class="knockout-card">
-        <div class="knockout-time-strip"><div class="knockout-time">4:00</div><div class="knockout-ampm">PM</div></div>
-        <div class="knockout-center"><div class="knockout-label">⚡ Grand Final</div><div class="knockout-matchup">Winner SF1 vs Winner SF2</div></div>
-      </div>
+      <div id="knockout-matches"></div>
     </div>
 
     <!-- NOTES -->
-    <div class="notes-section">
-      <div class="note-item"><div class="note-dot"></div><div class="note-text">All teams must arrive at least 30 minutes before their scheduled match</div></div>
-      <div class="note-item"><div class="note-dot"></div><div class="note-text">Strict timing is essential — delays will not be accommodated</div></div>
+    <div class="notes-section" id="notes-section"></div>
+
+    <!-- RULES ACCORDION -->
+    <div class="rules-section">
+      <button class="rules-toggle" id="rules-toggle" onclick="toggleRules()">
+        <span>📋 Match Rules & Regulations</span>
+        <span class="rules-toggle-icon">▼</span>
+      </button>
+      <div class="rules-body" id="rules-body"></div>
     </div>
 
     <!-- FOOTER -->
@@ -451,100 +522,137 @@
         <span>Italy</span>
         <span class="flag-emoji">🇮🇹</span>
       </div>
-      <div class="footer-tagline">PAVIA CRICKET 2026</div>
+      <div class="footer-tagline" id="footer-tagline"></div>
     </div>
 
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
+/* ============================================================
+   RENDER ENGINE — do not edit below unless you know HTML/JS
+   ============================================================ */
+
 document.addEventListener('DOMContentLoaded', function() {
-  populateTeamSelector();
-  setupEventListeners();
+  renderHeader();
+  renderTeamFilter();
+  renderGroupMatches();
+  renderKnockoutMatches();
+  renderNotes();
+  renderRules();
+  renderFooter();
 });
 
-function getUniqueTeams() {
-  const teams = new Set();
-  document.querySelectorAll('.team-name').forEach(el => {
-    const t = el.textContent.trim();
-    if (t) teams.add(t);
-  });
-  return Array.from(teams).sort();
+function renderHeader() {
+  const logoHTML = CONFIG.logoSrc
+    ? `<img class="header-logo" src="${CONFIG.logoSrc}" alt="Logo" onerror="this.style.display='none'">`
+    : `<div class="header-logo-placeholder">🏏</div>`;
+
+  const parts = CONFIG.tournamentName.split(' ');
+  const titleHTML = parts.length >= 2
+    ? `${parts[0]} <span>${parts.slice(1).join(' ')}</span>`
+    : CONFIG.tournamentName;
+
+  document.getElementById('header').innerHTML = `
+    ${logoHTML}
+    <div class="header-text">
+      <div class="header-label">Tournament</div>
+      <div class="header-title">${titleHTML}</div>
+      <div class="header-year">${CONFIG.year}</div>
+      <div class="header-meta">
+        <div class="meta-pill">${CONFIG.sport}</div>
+        <div class="meta-info">🗓️ ${CONFIG.date}</div>
+      </div>
+    </div>`;
 }
 
-function populateTeamSelector() {
-  const selector = document.getElementById('team-selector');
-  getUniqueTeams().forEach(team => {
-    const option = document.createElement('option');
-    option.value = team;
-    option.textContent = team;
-    selector.appendChild(option);
+function renderTeamFilter() {
+  const sel = document.getElementById('team-filter');
+  CONFIG.teams.forEach(t => {
+    const o = document.createElement('option');
+    o.value = t; o.textContent = t;
+    sel.appendChild(o);
   });
+  sel.addEventListener('change', filterSchedule);
 }
 
-function setupEventListeners() {
-  document.getElementById('team-selector').addEventListener('change', filterSchedule);
+function renderGroupMatches() {
+  const container = document.getElementById('group-matches');
+  container.innerHTML = CONFIG.groupMatches.map(m => `
+    <div class="match-card" data-teams="${m.team1}|${m.team2}">
+      <div class="match-time-strip">
+        <div class="match-time">${m.time}</div>
+        <div class="match-ampm">${m.period}</div>
+      </div>
+      <div class="match-center">
+        <div class="match-num">Match ${m.num}</div>
+        <div class="match-teams">
+          <div class="team-name">${m.team1}</div>
+          <div class="vs-badge">VS</div>
+          <div class="team-name">${m.team2}</div>
+        </div>
+      </div>
+      <div class="match-right"></div>
+    </div>`).join('');
+}
+
+function renderKnockoutMatches() {
+  const container = document.getElementById('knockout-matches');
+  container.innerHTML = CONFIG.knockoutMatches.map(m => `
+    <div class="knockout-card ${m.isFinal ? 'is-final' : ''}">
+      <div class="knockout-time-strip">
+        <div class="knockout-time">${m.time}</div>
+        <div class="knockout-ampm">${m.period}</div>
+      </div>
+      <div class="knockout-center">
+        <div class="knockout-label">${m.label}</div>
+        <div class="knockout-matchup">${m.matchup}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderNotes() {
+  document.getElementById('notes-section').innerHTML =
+    CONFIG.notes.map(n => `
+      <div class="note-item">
+        <div class="note-dot"></div>
+        <div class="note-text">${n}</div>
+      </div>`).join('');
+}
+
+function renderRules() {
+  document.getElementById('rules-body').innerHTML =
+    CONFIG.rules.map((r, i) => `
+      <div class="rule-item">
+        <div class="rule-num">${String(i + 1).padStart(2, '0')}</div>
+        <div class="rule-text">${r}</div>
+      </div>`).join('');
+}
+
+function renderFooter() {
+  document.getElementById('footer-tagline').textContent =
+    `${CONFIG.tournamentName.toUpperCase()} ${CONFIG.year}`;
 }
 
 function filterSchedule() {
-  const selectedTeam = document.getElementById('team-selector').value;
-  
+  const selected = document.getElementById('team-filter').value;
   document.querySelectorAll('.match-card').forEach(card => {
-    if (!selectedTeam) {
-      card.classList.remove('hidden');
-    } else {
-      let hasTeam = false;
-      card.querySelectorAll('.team-name').forEach(nameEl => {
-        if (nameEl.textContent.trim() === selectedTeam) hasTeam = true;
-      });
-      hasTeam ? card.classList.remove('hidden') : card.classList.add('hidden');
-    }
+    if (!selected) { card.classList.remove('hidden'); return; }
+    const teams = card.dataset.teams ? card.dataset.teams.split('|') : [];
+    teams.includes(selected) ? card.classList.remove('hidden') : card.classList.add('hidden');
   });
-
-  document.querySelectorAll('.knockout-card').forEach(card => card.classList.remove('hidden'));
 }
 
-async function exportPDF(mode) {
-  const poster = document.querySelector('.poster');
-  const controlPanel = document.querySelector('.control-panel');
-  const selectedTeam = document.getElementById('team-selector').value;
-
-  controlPanel.style.display = 'none';
-
-  let filename = 'Pavia_Cricket_Schedule_2026.pdf';
-
-  if (mode === 'team' && selectedTeam) {
-    document.querySelectorAll('.match-card').forEach(card => {
-      let hasTeam = false;
-      card.querySelectorAll('.team-name').forEach(n => {
-        if (n.textContent.trim() === selectedTeam) hasTeam = true;
-      });
-      hasTeam ? card.classList.remove('hidden') : card.classList.add('hidden');
-    });
-    document.querySelectorAll('.knockout-card').forEach(c => c.classList.remove('hidden'));
-    filename = selectedTeam + '_Schedule_2026.pdf';
-  } else {
-    document.querySelectorAll('.match-card, .knockout-card').forEach(c => c.classList.remove('hidden'));
-  }
-
-  const options = {
-    margin: 5,
-    filename: filename,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
-
-  try {
-    await html2pdf().set(options).from(poster).save();
-    alert('✓ PDF exported successfully!');
-  } catch (error) {
-    alert('Failed to export PDF. Please try again.');
-  }
-
-  controlPanel.style.display = 'flex';
+function clearFilter() {
+  document.getElementById('team-filter').value = '';
   filterSchedule();
+}
+
+function toggleRules() {
+  const btn = document.getElementById('rules-toggle');
+  const body = document.getElementById('rules-body');
+  btn.classList.toggle('open');
+  body.classList.toggle('open');
 }
 </script>
 </body>
