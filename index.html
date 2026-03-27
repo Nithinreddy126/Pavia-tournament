@@ -39,10 +39,21 @@
     width: 100%;
     max-width: 860px;
     background: linear-gradient(160deg, #111111 0%, #1c1c1e 30%, #111111 60%, #0d0d0d 100%);
+    --watermark-image: none;
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(200,168,75,0.3);
     box-shadow: 0 0 0 1px rgba(200,168,75,0.1), 0 40px 120px rgba(0,0,0,0.9);
+  }
+
+  .poster::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--watermark-image) center/cover no-repeat;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
   }
 
   .poster::before {
@@ -50,11 +61,12 @@
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(ellipse at 20% 30%, rgba(192,0,26,0.08) 0%, transparent 55%),
-      radial-gradient(ellipse at 80% 70%, rgba(192,0,26,0.05) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(200,168,75,0.04) 0%, transparent 70%);
+      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.35)),
+      radial-gradient(ellipse at 20% 30%, rgba(192,0,26,0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 70%, rgba(192,0,26,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(200,168,75,0.02) 0%, transparent 70%);
     pointer-events: none;
-    z-index: 0;
+    z-index: 1;
   }
 
   .accent-lines {
@@ -97,6 +109,11 @@
     filter: drop-shadow(0 4px 20px rgba(192,0,26,0.4));
     flex-shrink: 0;
     border-radius: 6px;
+    background-color: transparent;
+    border: none;
+    opacity: 1;                       /* full logo brightness */
+    transform: scale(1);              /* normal size */
+    mix-blend-mode: normal;           /* regular logo rendering */
   }
   .header-logo-placeholder {
     width: 100px;
@@ -663,6 +680,15 @@ function renderHeader() {
     ? `<img class="header-logo" src="${CONFIG.logoSrc}" alt="Logo" onerror="this.style.display='none'">`
     : `<div class="header-logo-placeholder">🏏</div>`;
 
+  const poster = document.getElementById('poster');
+  if (CONFIG.backgroundSrc) {
+    poster.style.background = 'linear-gradient(160deg, #111111 0%, #1c1c1e 30%, #111111 60%, #0d0d0d 100%)';
+    poster.style.setProperty('--watermark-image', `url('${CONFIG.backgroundSrc}')`);
+  } else {
+    poster.style.background = 'linear-gradient(160deg, #111111 0%, #1c1c1e 30%, #111111 60%, #0d0d0d 100%)';
+    poster.style.setProperty('--watermark-image', 'none');
+  }
+
   const parts = CONFIG.tournamentName.split(' ');
   const titleHTML = parts.length >= 2
     ? `${parts[0]} <span>${parts.slice(1).join(' ')}</span>`
@@ -671,7 +697,6 @@ function renderHeader() {
   document.getElementById('header').innerHTML = `
     ${logoHTML}
     <div class="header-text">
-      <div class="header-label">Tournament</div>
       <div class="header-title">${titleHTML}</div>
       <div class="header-year">${CONFIG.year}</div>
       <div class="header-meta">

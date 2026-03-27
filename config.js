@@ -11,7 +11,10 @@ const CONFIG = {
   sport: "Cricket",
 
   /* --- Logo: paste a URL or a base64 data URI --- */
-  logoSrc: "IMG_4607.jpeg",   // ← set to "" to hide logo
+  logoSrc: "IMG_4607.jpeg",   // set to "" to hide logo (keep non-empty to show)
+
+  /* --- Optional page poster background image (URL/base64) --- */
+  backgroundSrc: "IMG_4607.jpeg",   // set to "" to disable (or provide your own image)
 
   /* --- Groups (used for group display panel) --- */
   groups: [
