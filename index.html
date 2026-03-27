@@ -20,8 +20,19 @@ const CONFIG = {
   sport: "Cricket",
 
   /* --- Logo: paste a URL or a base64 data URI --- */
-  /* Using the uploaded logo image */
   logoSrc: "IMG_4607.jpeg",   // ← set to "" to hide logo
+
+  /* --- Groups (used for group display panel) --- */
+  groups: [
+    {
+      name: "Group A",
+      teams: ["Pavia Falcons", "Torino Thunders", "Underdogs"]
+    },
+    {
+      name: "Group B",
+      teams: ["MM Blasters", "Bologna", "Novie Luigi"]
+    }
+  ],
 
   /* --- Teams (used for filter dropdown) --- */
   teams: [
@@ -50,6 +61,21 @@ const CONFIG = {
     { time: "4:00", period: "PM", label: "⚡ Grand Final", matchup: "Winner SF1 vs Winner SF2",       isFinal: true  }
   ],
 
+  /* --- Umpires per match (2 per match, index matches groupMatches) --- */
+  /* Set to ["Yet to be confirmed", "Yet to be confirmed"] for all until known */
+  umpires: [
+    ["Yet to be confirmed", "Yet to be confirmed"],
+    ["Yet to be confirmed", "Yet to be confirmed"],
+    ["Yet to be confirmed", "Yet to be confirmed"],
+    ["Yet to be confirmed", "Yet to be confirmed"],
+    ["Yet to be confirmed", "Yet to be confirmed"],
+    ["Yet to be confirmed", "Yet to be confirmed"],
+    // knockouts:
+    ["Yet to be confirmed", "Yet to be confirmed"],
+    ["Yet to be confirmed", "Yet to be confirmed"],
+    ["Yet to be confirmed", "Yet to be confirmed"]
+  ],
+
   /* --- Notes shown at bottom of schedule --- */
   notes: [
     "All teams must arrive at least 30 minutes before their scheduled match",
@@ -61,8 +87,8 @@ const CONFIG = {
     "Rules will not be changed during the match. Only a captain should speak for a team.",
     "8 overs per side. Only one bowler can bowl maximum of 3 overs rest can bowl only 2 overs.",
     "1st over is power play. During the power play, only two fielders are allowed outside the inner circle.",
-    "1 run per wide, 1 run per no ball. Second bounce will be given as a dead ball  — called only by the leg umpire.",
-    "free hit for all types of no balls. 1 run will be given",
+    "1 run per wide, 1 run per no ball. Second bounce will be given as a dead ball — called only by the leg umpire.",
+    "Free hit for all types of no balls. 1 run will be given.",
     "No leg byes, no byes — only overthrows are allowed.",
     "Boundaries will be explained on field with the captain.",
     "Umpire's decision is final. One player from each team must participate as umpire.",
@@ -222,6 +248,67 @@ const CONFIG = {
   .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.15), transparent); }
   .section-tag.knockout + .section-line { background: linear-gradient(90deg, rgba(200,168,75,0.3), transparent); }
 
+  /* ========================
+     GROUPS PANEL
+  ======================== */
+  .groups-panel {
+    margin: 0 36px 4px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .group-box {
+    border: 1px solid rgba(200,168,75,0.2);
+    background: rgba(200,168,75,0.04);
+    overflow: hidden;
+  }
+  .group-box-header {
+    background: linear-gradient(90deg, rgba(200,168,75,0.18), rgba(200,168,75,0.06));
+    border-bottom: 1px solid rgba(200,168,75,0.2);
+    padding: 7px 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .group-box-header::before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 14px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .group-team-list {
+    padding: 8px 14px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .group-team-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .group-team-bullet {
+    width: 5px;
+    height: 5px;
+    background: var(--crimson-bright);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .group-team-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--platinum);
+    letter-spacing: 0.5px;
+  }
+
   /* MATCH CARD */
   .match-card {
     display: grid;
@@ -361,6 +448,107 @@ const CONFIG = {
     flex: 1;
   }
 
+  /* UMPIRES ACCORDION */
+  .umpires-section { margin: 8px 36px 0; }
+  .umpires-toggle {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0;
+    color: var(--platinum);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 12px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.2s;
+  }
+  .umpires-toggle:hover { background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04)); }
+  .umpires-toggle-icon {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    color: var(--silver);
+  }
+  .umpires-toggle.open .umpires-toggle-icon { transform: rotate(180deg); }
+
+  .umpires-body {
+    display: none;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-top: none;
+    background: rgba(0,0,0,0.25);
+    padding: 12px 18px;
+  }
+  .umpires-body.open { display: block; }
+
+  .umpire-section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--silver);
+    opacity: 0.6;
+    margin: 10px 0 6px;
+  }
+  .umpire-section-label:first-child { margin-top: 0; }
+
+  .umpire-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .umpire-row:last-child { border-bottom: none; }
+  .umpire-match-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--silver);
+    min-width: 68px;
+    flex-shrink: 0;
+  }
+  .umpire-names {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .umpire-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--platinum);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 2px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .umpire-badge.tbc {
+    color: var(--silver);
+    font-style: italic;
+    font-size: 11px;
+    border-style: dashed;
+    border-color: rgba(255,255,255,0.05);
+  }
+  .umpire-icon { font-size: 10px; opacity: 0.6; }
+  .umpire-divider {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    color: var(--silver);
+    opacity: 0.4;
+  }
+
   /* FILTER BAR */
   .filter-bar {
     margin: 14px 36px 0;
@@ -440,9 +628,11 @@ const CONFIG = {
 
     .section { padding: 0 14px 4px; }
     .rules-section { margin: 10px 14px 0; }
+    .umpires-section { margin: 8px 14px 0; }
     .filter-bar { margin: 10px 14px 0; }
     .notes-section { margin: 8px 14px 0; }
     .footer { padding: 10px 14px 16px; }
+    .groups-panel { margin: 0 14px 4px; }
 
     .match-card { grid-template-columns: 62px 1fr 6px; }
     .match-time { font-size: 19px; }
@@ -454,11 +644,14 @@ const CONFIG = {
     .knockout-card { grid-template-columns: 62px 1fr; }
     .knockout-time { font-size: 19px; }
     .knockout-matchup { font-size: 13px; }
+
+    .umpire-match-label { min-width: 56px; font-size: 10px; }
+    .umpire-badge { font-size: 11px; padding: 2px 8px; }
   }
 
   @media print {
     body { background: white; padding: 0; }
-    .filter-bar, .rules-section { display: none; }
+    .filter-bar, .rules-section, .umpires-section { display: none; }
     .poster { max-width: 100%; box-shadow: none; border: none; }
   }
 </style>
@@ -473,6 +666,15 @@ const CONFIG = {
 
     <!-- HEADER (built by JS) -->
     <div class="header" id="header"></div>
+
+    <!-- GROUPS PANEL -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-tag">Groups</div>
+        <div class="section-line"></div>
+      </div>
+    </div>
+    <div class="groups-panel" id="groups-panel"></div>
 
     <!-- FILTER BAR -->
     <div class="filter-bar">
@@ -507,10 +709,19 @@ const CONFIG = {
     <!-- RULES ACCORDION -->
     <div class="rules-section">
       <button class="rules-toggle" id="rules-toggle" onclick="toggleRules()">
-        <span>📋 Match Rules & Regulations</span>
+        <span>📋 Match Rules &amp; Regulations</span>
         <span class="rules-toggle-icon">▼</span>
       </button>
       <div class="rules-body" id="rules-body"></div>
+    </div>
+
+    <!-- UMPIRES ACCORDION -->
+    <div class="umpires-section">
+      <button class="umpires-toggle" id="umpires-toggle" onclick="toggleUmpires()">
+        <span>🧑‍⚖️ Match Umpires</span>
+        <span class="umpires-toggle-icon">▼</span>
+      </button>
+      <div class="umpires-body" id="umpires-body"></div>
     </div>
 
     <!-- FOOTER -->
@@ -530,16 +741,18 @@ const CONFIG = {
 
 <script>
 /* ============================================================
-   RENDER ENGINE — do not edit below unless you know HTML/JS
+   RENDER ENGINE
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
   renderHeader();
+  renderGroups();
   renderTeamFilter();
   renderGroupMatches();
   renderKnockoutMatches();
   renderNotes();
   renderRules();
+  renderUmpires();
   renderFooter();
 });
 
@@ -564,6 +777,21 @@ function renderHeader() {
         <div class="meta-info">🗓️ ${CONFIG.date}</div>
       </div>
     </div>`;
+}
+
+function renderGroups() {
+  const panel = document.getElementById('groups-panel');
+  panel.innerHTML = CONFIG.groups.map(g => `
+    <div class="group-box">
+      <div class="group-box-header">${g.name}</div>
+      <div class="group-team-list">
+        ${g.teams.map(t => `
+          <div class="group-team-item">
+            <div class="group-team-bullet"></div>
+            <div class="group-team-name">${t}</div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
 }
 
 function renderTeamFilter() {
@@ -629,6 +857,51 @@ function renderRules() {
       </div>`).join('');
 }
 
+function renderUmpires() {
+  const allMatches = [
+    ...CONFIG.groupMatches.map((m, i) => ({
+      label: `Match ${m.num}`,
+      sub: `${m.team1} vs ${m.team2}`,
+      umpires: CONFIG.umpires[i] || ["Yet to be confirmed", "Yet to be confirmed"],
+      type: 'group'
+    })),
+    ...CONFIG.knockoutMatches.map((m, i) => ({
+      label: m.label.replace('⚡ ', ''),
+      sub: m.matchup,
+      umpires: CONFIG.umpires[CONFIG.groupMatches.length + i] || ["Yet to be confirmed", "Yet to be confirmed"],
+      type: 'knockout'
+    }))
+  ];
+
+  const groupRows = allMatches.filter(m => m.type === 'group');
+  const knockoutRows = allMatches.filter(m => m.type === 'knockout');
+
+  function buildRows(matches) {
+    return matches.map(m => {
+      const badges = m.umpires.map((u, idx) => {
+        const isTbc = u.toLowerCase().includes('yet') || u.toLowerCase().includes('tbc') || u.trim() === '';
+        return `<span class="umpire-badge ${isTbc ? 'tbc' : ''}"><span class="umpire-icon">🧑‍⚖️</span>${isTbc ? 'Yet to be confirmed' : u}</span>`;
+      });
+      return `
+        <div class="umpire-row">
+          <div class="umpire-match-label">${m.label}</div>
+          <div class="umpire-names">
+            ${badges[0]}
+            <span class="umpire-divider">&amp;</span>
+            ${badges[1]}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  document.getElementById('umpires-body').innerHTML = `
+    <div class="umpire-section-label">Group Stage</div>
+    ${buildRows(groupRows)}
+    <div class="umpire-section-label" style="margin-top:14px">Knockout Stage</div>
+    ${buildRows(knockoutRows)}
+  `;
+}
+
 function renderFooter() {
   document.getElementById('footer-tagline').textContent =
     `${CONFIG.tournamentName.toUpperCase()} ${CONFIG.year}`;
@@ -651,6 +924,13 @@ function clearFilter() {
 function toggleRules() {
   const btn = document.getElementById('rules-toggle');
   const body = document.getElementById('rules-body');
+  btn.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+function toggleUmpires() {
+  const btn = document.getElementById('umpires-toggle');
+  const body = document.getElementById('umpires-body');
   btn.classList.toggle('open');
   body.classList.toggle('open');
 }
