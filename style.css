@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Pavia Cricket Tournament 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="config.js"></script>
-<script src="script.js" defer></script>
-
-<style>
-  :root {
+:root {
     --crimson: #C0001A;
     --crimson-bright: #FF1A35;
     --crimson-deep: #7A0010;
@@ -40,7 +28,6 @@
     width: 100%;
     max-width: 860px;
     background: linear-gradient(160deg, #111111 0%, #1c1c1e 30%, #111111 60%, #0d0d0d 100%);
-    --watermark-image: none;
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(200,168,75,0.3);
@@ -112,9 +99,9 @@
     border-radius: 6px;
     background-color: transparent;
     border: none;
-    opacity: 1;                       /* full logo brightness */
-    transform: scale(1);              /* normal size */
-    mix-blend-mode: normal;           /* regular logo rendering */
+    opacity: 1;
+    transform: scale(1);
+    mix-blend-mode: normal;
   }
   .header-logo-placeholder {
     width: 100px;
@@ -129,11 +116,6 @@
     font-size: 32px;
   }
   .header-text { flex: 1; min-width: 0; }
-  .header-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 10px; font-weight: 700; letter-spacing: 4px;
-    color: var(--gold); text-transform: uppercase; margin-bottom: 2px;
-  }
   .header-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(40px, 8vw, 68px);
@@ -168,9 +150,7 @@
   .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.15), transparent); }
   .section-tag.knockout + .section-line { background: linear-gradient(90deg, rgba(200,168,75,0.3), transparent); }
 
-  /* ========================
-     GROUPS PANEL
-  ======================== */
+  /* GROUPS PANEL */
   .groups-panel {
     margin: 0 36px 4px;
     display: grid;
@@ -330,11 +310,7 @@
     transition: background 0.2s;
   }
   .rules-toggle:hover { background: linear-gradient(90deg, rgba(200,168,75,0.2), rgba(200,168,75,0.08)); }
-  .rules-toggle-icon {
-    font-size: 18px;
-    transition: transform 0.3s ease;
-    color: var(--gold);
-  }
+  .rules-toggle-icon { font-size: 18px; transition: transform 0.3s ease; color: var(--gold); }
   .rules-toggle.open .rules-toggle-icon { transform: rotate(180deg); }
 
   .rules-body {
@@ -389,11 +365,7 @@
     transition: background 0.2s;
   }
   .umpires-toggle:hover { background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04)); }
-  .umpires-toggle-icon {
-    font-size: 18px;
-    transition: transform 0.3s ease;
-    color: var(--silver);
-  }
+  .umpires-toggle-icon { font-size: 18px; transition: transform 0.3s ease; color: var(--silver); }
   .umpires-toggle.open .umpires-toggle-icon { transform: rotate(180deg); }
 
   .umpires-body {
@@ -512,7 +484,7 @@
     color: var(--gold);
   }
   .custom-section-toggle.open .custom-section-icon { transform: rotate(180deg); }
-  
+
   .custom-section-body {
     display: none;
     border: 1px solid rgba(200,168,75,0.15);
@@ -521,7 +493,7 @@
     padding: 16px 18px;
   }
   .custom-section-body.open { display: block; }
-  
+
   .custom-item {
     display: flex;
     align-items: flex-start;
@@ -545,6 +517,15 @@
     font-size: 13px;
     color: var(--platinum);
     flex: 1;
+  }
+
+  .custom-link {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+  }
+  .custom-link:hover {
+    color: var(--crimson-bright);
   }
 
   /* FILTER BAR */
@@ -614,9 +595,7 @@
   .match-card.hidden,
   .knockout-card.hidden { display: none; }
 
-  /* ========================
-     MOBILE
-  ======================== */
+  /* MOBILE */
   @media (max-width: 600px) {
     body { padding: 8px 8px 40px; }
 
@@ -647,96 +626,3 @@
     .umpire-match-label { min-width: 56px; font-size: 10px; }
     .umpire-badge { font-size: 11px; padding: 2px 8px; }
   }
-
-  @media print {
-    body { background: white; padding: 0; }
-    .filter-bar, .rules-section, .umpires-section { display: none; }
-    .poster { max-width: 100%; box-shadow: none; border: none; }
-  }
-</style>
-</head>
-<body>
-
-<div class="poster" id="poster">
-  <div class="top-bar"></div>
-  <div class="accent-lines"></div>
-
-  <div class="content">
-
-    <!-- HEADER (built by JS) -->
-    <div class="header" id="header"></div>
-
-    <!-- GROUPS PANEL -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-tag">Groups</div>
-        <div class="section-line"></div>
-      </div>
-    </div>
-    <div class="groups-panel" id="groups-panel"></div>
-
-    <!-- FILTER BAR -->
-    <div class="filter-bar">
-      <span class="filter-label">Filter by team:</span>
-      <select class="filter-select" id="team-filter">
-        <option value="">All teams</option>
-      </select>
-      <button class="filter-clear-btn" onclick="clearFilter()">Show All</button>
-    </div>
-
-    <!-- GROUP STAGE -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-tag">Group Stage</div>
-        <div class="section-line"></div>
-      </div>
-      <div id="group-matches"></div>
-    </div>
-
-    <!-- KNOCKOUT STAGE -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-tag knockout">🏆 Knockout Stage</div>
-        <div class="section-line"></div>
-      </div>
-      <div id="knockout-matches"></div>
-    </div>
-
-    <!-- NOTES -->
-    <div class="notes-section" id="notes-section"></div>
-
-    <!-- RULES ACCORDION -->
-    <div class="rules-section">
-      <button class="rules-toggle" id="rules-toggle" onclick="toggleRules()">
-        <span>📋 Match Rules &amp; Regulations</span>
-        <span class="rules-toggle-icon">▼</span>
-      </button>
-      <div class="rules-body" id="rules-body"></div>
-    </div>
-
-    <!-- UMPIRES ACCORDION -->
-    <div class="umpires-section">
-      <button class="umpires-toggle" id="umpires-toggle" onclick="toggleUmpires()">
-        <span>🧑‍⚖️ Match Umpires</span>
-        <span class="umpires-toggle-icon">▼</span>
-      </button>
-      <div class="umpires-body" id="umpires-body"></div>
-    </div>
-
-    <!-- CUSTOM SECTIONS (auto-rendered from config) -->
-    <div id="custom-sections"></div>
-
-    <!-- FOOTER -->
-    <div class="footer">
-      <div class="footer-flags">
-        <span class="flag-emoji">🇮🇳</span>
-        <span>India</span>
-        <span style="color:rgba(255,255,255,0.2)">×</span>
-        <span>Italy</span>
-        <span class="flag-emoji">🇮🇹</span>
-      </div>
-      <div class="footer-tagline" id="footer-tagline"></div>
-    </div>
-
-  </div>
-</div>
