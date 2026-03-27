@@ -92,9 +92,30 @@ const CONFIG = {
     "Overthrows are allowed. If the ball goes behind the wickets on an overthrow, extra runs plus the overthrow are added.",
     "If the ball touches the bat and goes behind the wickets, one run is declared.",
     "In case of a big deflection (bounce or low ball), it is at the umpire's discretion to call a dead ball."
-  ]
+  ],
 
-};
+  /* --- Custom Sections (add new sections without touching code) --- */
+  /* Set to [] to hide, or add objects like below to create new sections */
+  customSections: [
+    // Example:
+    {
+     title: "📍 Venue Information",
+     items: [
+       { label: "Location", value: "Parco della Vernavola" },
+       { label: "Address", value: "Via Torretta, 27100 Pavia PV" },
+       { label: "📌", value: "https://maps.app.goo.gl/1RXcw3dLd5ZSRfJr9" }
+     ]
+    },
+    {
+      title: "☏ Contact",
+      collapsible: false,
+      items: [
+        { label: "Shreyas", value: "+393483118417" },
+        { label: "📧", value: "pavia.cricket@gmail.com" },
+      ]
+     }
+  ]
+}
 /* ============================================================
    End of Edit Zone
    ============================================================ */
