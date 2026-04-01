@@ -37,6 +37,7 @@ const CONFIG = {
     "Torino Thunders",
     "Bologna"
   ],
+  
 
   /* --- Group Stage Matches --- */
   groupMatches: [
