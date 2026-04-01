@@ -24,7 +24,7 @@ const CONFIG = {
     },
     {
       name: "Group B",
-      teams: ["MM Blasters", "Bologna", "Novie Luigi"]
+      teams: ["MM Blasters", "Bologna", "Novi Ligure"]
     }
   ],
 
@@ -33,7 +33,7 @@ const CONFIG = {
     "Pavia Falcons",
     "Underdogs",
     "MM Blasters",
-    "Novie Luigi",
+    "Novi Ligure",
     "Torino Thunders",
     "Bologna"
   ],
@@ -41,11 +41,11 @@ const CONFIG = {
   /* --- Group Stage Matches --- */
   groupMatches: [
     { time: "7:30", period: "AM", num: "01", team1: "Pavia Falcons",   team2: "Underdogs"       },
-    { time: "8:30", period: "AM", num: "02", team1: "MM Blasters",     team2: "Novie Luigi"     },
+    { time: "8:30", period: "AM", num: "02", team1: "MM Blasters",     team2: "Novi Ligure"     },
     { time: "9:30", period: "AM", num: "03", team1: "Torino Thunders", team2: "Underdogs"       },
     { time: "10:30",period: "AM", num: "04", team1: "Bologna",         team2: "MM Blasters"     },
     { time: "11:30",period: "AM", num: "05", team1: "Pavia Falcons",   team2: "Torino Thunders" },
-    { time: "12:30",period: "PM", num: "06", team1: "Bologna",         team2: "Novie Luigi"     }
+    { time: "12:30",period: "PM", num: "06", team1: "Bologna",         team2: "Novi Ligure"     }
   ],
 
   /* --- Knockout Stage Matches --- */
@@ -78,20 +78,19 @@ const CONFIG = {
 
   /* --- Match Rules (shown in collapsible accordion) --- */
   rules: [
-    "Rules will not be changed during the match. Only a captain should speak for a team.",
-    "8 overs per side. Only one bowler can bowl maximum of 3 overs rest can bowl only 2 overs.",
-    "1st over is power play. During the power play, only two fielders are allowed outside the inner circle.",
-    "1 run per wide, 1 run per no ball. Second bounce will be given as a dead ball — called only by the leg umpire.",
-    "Free hit for all types of no balls. 1 run will be given.",
+    "Each match will consist of 8 overs per side, Only one bowler can bowl a maximum of 3 overs.",
+    "Only two fielders are allowed outside the inner circle during the first over Powerplay.",
+    "A free hit will be awarded for leg-no-balls and waist-height no-balls.",
+    "Only one bouncer per over is permitted, A second bouncer in the same over will be called a wide.No head-height no-ball rule applies.",
     "No leg byes, no byes — only overthrows are allowed.",
-    "Boundaries will be explained on field with the captain.",
-    "Umpire's decision is final. One player from each team must participate as umpire.",
-    "Playing '8' (your playing XI) must be declared to the umpire and scorers before the game.",
-    "The '8's cannot be changed during the match. If a team qualifies for the finals, the captain may change the '8's for the final only.",
-    "If the ball hits the electric line, the whole pole, or its base — it is a dead ball.",
-    "Overthrows are allowed. If the ball goes behind the wickets on an overthrow, extra runs plus the overthrow are added.",
-    "If the ball touches the bat and goes behind the wickets, one run is declared.",
-    "In case of a big deflection (bounce or low ball), it is at the umpire's discretion to call a dead ball."
+    "Each team must submit a 10-player squad, and the playing 8 must be selected only from this squad.",
+    "Once finalized, the playing 8 cannot be changed; no impact player rule applies, only injury-based substitutions are allowed.",
+    "If the ball hits the electric line, pole, or its base, it will be declared a dead ball.",
+    "In case of a major deflection (bounce or low ball), the umpire has the discretion to call it a dead ball.",
+    "Any ground-specific rules will be communicated to captains before the match.",
+    "If a batsman suspects chucking, batsman should step away and not attempt to play the delivery.",
+    "The umpire’s decision is final and binding."
+    
   ],
 
   /* --- Custom Sections (add new sections without touching code) --- */
