@@ -103,7 +103,7 @@ const CONFIG = {
      items: [
        { label: "Location", value: "Parco della Vernavola" },
        { label: "Address", value: "Via Torretta, 27100 Pavia PV" },
-       { label: "📌", value: "https://maps.app.goo.gl/1RXcw3dLd5ZSRfJr9" }
+       { label: "📌", value: "https://maps.app.goo.gl/RMq4KDGw6W8MtZUV7?g_st=ic" }
      ]
     },
     {
