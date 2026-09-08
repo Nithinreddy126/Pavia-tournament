@@ -17,7 +17,7 @@ const CONFIG = {
   backgroundSrc: "IMG_4607.jpeg",   // set to "" to disable (or provide your own image)
 
   /* --- Groups (used for group display panel) --- */
-  groups: [
+  Section1: [
     {
       name: "Group A",
       teams: ["Pavia Falcons", "Torino Thunders", "Underdogs"]
@@ -29,7 +29,7 @@ const CONFIG = {
   ],
 
   /* --- Teams (used for filter dropdown) --- */
-  teams: [
+  Section2: [
     "Pavia Falcons",
     "NAM Team",
     "BCCI Bologna",
@@ -40,7 +40,7 @@ const CONFIG = {
   
 
   /* --- Group Stage Matches --- */
-  LeagueMatches: [
+  Section3: [
     { time: "7:30", period: "AM", num: "01", team1: "TBC",           team2: "TBC"             },
     { time: "8:30", period: "AM", num: "02", team1: "TBC",           team2: "TBC"             },
     { time: "9:30", period: "AM", num: "03", team1: "TBC",           team2: "TBC"             },
@@ -50,7 +50,7 @@ const CONFIG = {
   ],
 
   /* --- Knockout Stage Matches --- */
-  knockoutMatches: [
+  Section4: [
     { time: "1:40", period: "PM", label: "Semi-Final 1",  matchup: "(1st vs 4th)",                    isFinal: false },
     { time: "2:40", period: "PM", label: "Semi-Final 2",  matchup: "(2nd vs 3rd)",                    isFinal: false },
     { time: "4:00", period: "PM", label: "⚡ Grand Final", matchup: "Winner SF1 vs Winner SF2",       isFinal: true  }
@@ -58,7 +58,7 @@ const CONFIG = {
 
   /* --- Umpires per match (2 per match, index matches groupMatches) --- */
   /* Set to ["Yet to be confirmed", "Yet to be confirmed"] for all until known */
-  umpires: [
+  Section5: [
     ["Yet to be confirmed", "Yet to be confirmed"],
     ["Yet to be confirmed", "Yet to be confirmed"],
     ["Yet to be confirmed", "Yet to be confirmed"],
@@ -72,13 +72,13 @@ const CONFIG = {
   ],
 
   /* --- Notes shown at bottom of schedule --- */
-  notes: [
+  Section6: [
     "All teams must arrive at least 30 minutes before their scheduled match",
     "Strict timing is essential — delays will not be accommodated"
   ],
 
   /* --- Match Rules (shown in collapsible accordion) --- */
-  rules: [
+  Section7: [
     "Each match will consist of 8 overs per side, Only one bowler can bowl a maximum of 3 overs.",
     "Only two fielders are allowed outside the inner circle during the first over Powerplay.",
     "A free hit will be awarded for leg-no-balls and waist-height no-balls.",
@@ -93,6 +93,16 @@ const CONFIG = {
     "The umpire’s decision is final and binding."
     "Only Standard bats or allowed. Hallow bats and modified bats are not allowed"
     
+  ],
+
+  Sections: [
+     {Section: "Section1",  Name: "groups", isEnabled: false},
+     {Section: "Section2",  Name: "teams", isEnabled: true},
+     {Section: "Section3",  Name: "LeagueMatches", isEnabled: true},
+     {Section: "Section4",  Name: "knockoutMatches", isEnabled: true},
+     {Section: "Section5",  Name: "umpires", isEnabled: true},
+     {Section: "Section6",  Name: "notes", isEnabled: true},
+     {Section: "Section7",  Name: "rules", isEnabled: true},
   ],
 
   /* --- Custom Sections (add new sections without touching code) --- */
