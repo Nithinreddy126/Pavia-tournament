@@ -11,18 +11,36 @@ document.addEventListener('DOMContentLoaded', function() {
   renderFooter();
 });
 
+// Direct mapping: Section1 -> Index 0, Section2 -> Index 1, etc.
+function isSectionEnabled(index) {
+  return CONFIG.Sections[index] ? CONFIG.Sections[index].isEnabled : true;
+}
+
+// Resolves target section keys based strictly on their immutable index mapping order
+function getSectionData(index, fallbackKey) {
+  const target = CONFIG.Sections[index];
+  if (!target || !target.Section) return CONFIG[fallbackKey];
+  return CONFIG[target.Section];
+}
+
+function getSectionName(index) {
+  return CONFIG.Sections[index] ? CONFIG.Sections[index].Name : "";
+}
+
 function renderHeader() {
   const logoHTML = CONFIG.logoSrc
     ? `<img class="header-logo" src="${CONFIG.logoSrc}" alt="Logo" onerror="this.style.display='none'">`
     : `<div class="header-logo-placeholder">🏏</div>`;
 
   const poster = document.getElementById('poster');
-  if (CONFIG.backgroundSrc) {
-    poster.style.background = 'linear-gradient(160deg, #111111 0%, #1c1c1e 30%, #111111 60%, #0d0d0d 100%)';
-    poster.style.setProperty('--watermark-image', `url('${CONFIG.backgroundSrc}')`);
-  } else {
-    poster.style.background = 'linear-gradient(160deg, #111111 0%, #1c1c1e 30%, #111111 60%, #0d0d0d 100%)';
-    poster.style.setProperty('--watermark-image', 'none');
+  if (poster) {
+    if (CONFIG.backgroundSrc) {
+      poster.style.background = 'linear-gradient(160deg, #111111 0%, #1c1c1e 30%, #111111 60%, #0d0d0d 100%)';
+      poster.style.setProperty('--watermark-image', `url('${CONFIG.backgroundSrc}')`);
+    } else {
+      poster.style.background = 'linear-gradient(160deg, #111111 0%, #1c1c1e 30%, #111111 60%, #0d0d0d 100%)';
+      poster.style.setProperty('--watermark-image', 'none');
+    }
   }
 
   const parts = CONFIG.tournamentName.split(' ');
@@ -30,21 +48,32 @@ function renderHeader() {
     ? `${parts[0]} <span>${parts.slice(1).join(' ')}</span>`
     : CONFIG.tournamentName;
 
-  document.getElementById('header').innerHTML = `
-    ${logoHTML}
-    <div class="header-text">
-      <div class="header-title">${titleHTML}</div>
-      <div class="header-year">${CONFIG.year}</div>
-      <div class="header-meta">
-        <div class="meta-pill">${CONFIG.sport}</div>
-        <div class="meta-info">🗓️ ${CONFIG.date}</div>
-      </div>
-    </div>`;
+  const headerEl = document.getElementById('header');
+  if (headerEl) {
+    headerEl.innerHTML = `
+      ${logoHTML}
+      <div class="header-text">
+        <div class="header-title">${titleHTML}</div>
+        <div class="header-year">${CONFIG.year}</div>
+        <div class="header-meta">
+          <div class="meta-pill">${CONFIG.sport}</div>
+          <div class="meta-info">🗓️ ${CONFIG.date}</div>
+        </div>
+      </div>`;
+  }
 }
 
 function renderGroups() {
   const panel = document.getElementById('groups-panel');
-  panel.innerHTML = CONFIG.groups.map(g => `
+  if (!panel) return;
+
+  if (!isSectionEnabled(0)) {
+    panel.innerHTML = '';
+    return;
+  }
+
+  const groupsData = getSectionData(0, 'Section1') || [];
+  panel.innerHTML = groupsData.map(g => `
     <div class="group-box">
       <div class="group-box-header">${g.name}</div>
       <div class="group-team-list">
@@ -59,18 +88,33 @@ function renderGroups() {
 
 function renderTeamFilter() {
   const sel = document.getElementById('team-filter');
+  if (!sel) return;
+
+  if (!isSectionEnabled(1)) {
+    sel.innerHTML = '';
+    return;
+  }
+
+  const teamsData = getSectionData(1, 'Section2') || [];
   sel.innerHTML = '<option value="">All teams</option>';
-  CONFIG.teams.forEach(t => {
+  teamsData.forEach(t => {
     const o = document.createElement('option');
     o.value = t; o.textContent = t;
     sel.appendChild(o);
   });
   sel.addEventListener('change', filterSchedule);
 }
-
 function renderGroupMatches() {
   const container = document.getElementById('group-matches');
-  container.innerHTML = CONFIG.groupMatches.map(m => `
+  if (!container) return;
+
+  if (!isSectionEnabled(2)) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const matchesData = getSectionData(2, 'Section3') || [];
+  container.innerHTML = matchesData.map(m => `
     <div class="match-card" data-teams="${m.team1}|${m.team2}">
       <div class="match-time-strip">
         <div class="match-time">${m.time}</div>
@@ -90,7 +134,15 @@ function renderGroupMatches() {
 
 function renderKnockoutMatches() {
   const container = document.getElementById('knockout-matches');
-  container.innerHTML = CONFIG.knockoutMatches.map(m => `
+  if (!container) return;
+
+  if (!isSectionEnabled(3)) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const knockoutData = getSectionData(3, 'Section4') || [];
+  container.innerHTML = knockoutData.map(m => `
     <div class="knockout-card ${m.isFinal ? 'is-final' : ''}">
       <div class="knockout-time-strip">
         <div class="knockout-time">${m.time}</div>
@@ -104,8 +156,16 @@ function renderKnockoutMatches() {
 }
 
 function renderNotes() {
-  document.getElementById('notes-section').innerHTML =
-    CONFIG.notes.map(n => `
+  const container = document.getElementById('notes-section');
+  if (!container) return;
+
+  if (!isSectionEnabled(5)) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const notesData = getSectionData(5, 'Section6') || [];
+  container.innerHTML = notesData.map(n => `
       <div class="note-item">
         <div class="note-dot"></div>
         <div class="note-text">${n}</div>
@@ -113,8 +173,16 @@ function renderNotes() {
 }
 
 function renderRules() {
-  document.getElementById('rules-body').innerHTML =
-    CONFIG.rules.map((r, i) => `
+  const container = document.getElementById('rules-body');
+  if (!container) return;
+
+  if (!isSectionEnabled(6)) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const rulesData = getSectionData(6, 'Section7') || [];
+  container.innerHTML = rulesData.map((r, i) => `
       <div class="rule-item">
         <div class="rule-num">${String(i + 1).padStart(2, '0')}</div>
         <div class="rule-text">${r}</div>
@@ -122,17 +190,29 @@ function renderRules() {
 }
 
 function renderUmpires() {
+  const container = document.getElementById('umpires-body');
+  if (!container) return;
+
+  if (!isSectionEnabled(4)) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const groupMatches = getSectionData(2, 'Section3') || [];
+  const knockoutMatches = getSectionData(3, 'Section4') || [];
+  const umpiresData = getSectionData(4, 'Section5') || [];
+
   const allMatches = [
-    ...CONFIG.groupMatches.map((m, i) => ({
+    ...groupMatches.map((m, i) => ({
       label: `Match ${m.num}`,
       sub: `${m.team1} vs ${m.team2}`,
-      umpires: CONFIG.umpires[i] || ["Yet to be confirmed", "Yet to be confirmed"],
+      umpires: umpiresData[i] || ["Yet to be confirmed", "Yet to be confirmed"],
       type: 'group'
     })),
-    ...CONFIG.knockoutMatches.map((m, i) => ({
+    ...knockoutMatches.map((m, i) => ({
       label: m.label.replace('⚡ ', ''),
       sub: m.matchup,
-      umpires: CONFIG.umpires[CONFIG.groupMatches.length + i] || ["Yet to be confirmed", "Yet to be confirmed"],
+      umpires: umpiresData[groupMatches.length + i] || ["Yet to be confirmed", "Yet to be confirmed"],
       type: 'knockout'
     }))
   ];
@@ -154,7 +234,7 @@ function renderUmpires() {
       </div>`;
   }).join('');
 
-  document.getElementById('umpires-body').innerHTML = `
+  container.innerHTML = `
     <div class="umpire-section-label">Group Stage</div>
     ${buildRows(groupRows)}
     <div class="umpire-section-label" style="margin-top:14px">Knockout Stage</div>
@@ -164,6 +244,8 @@ function renderUmpires() {
 
 function renderCustomSections() {
   const container = document.getElementById('custom-sections');
+  if (!container) return;
+
   if (!CONFIG.customSections || CONFIG.customSections.length === 0) {
     container.innerHTML = '';
     return;
@@ -230,39 +312,31 @@ function renderCustomSections() {
 
 function toggleCustomSection(idx) {
   const body = document.getElementById(`custom-body-${idx}`);
-  const btn = body.previousElementSibling;
-  body.classList.toggle('open');
-  btn.classList.toggle('open');
+  if (body) {
+    body.classList.toggle('open');
+    const btn = body.previousElementSibling;
+    if (btn && btn.classList.contains('custom-section-toggle')) {
+      btn.classList.toggle('open');
+    }
+  }
 }
 
 function renderFooter() {
-  document.getElementById('footer-tagline').textContent = `${CONFIG.tournamentName.toUpperCase()} ${CONFIG.year}`;
+  const footer = document.getElementById('footer');
+  if (footer) {
+    footer.innerHTML = `<p>&copy; ${CONFIG.year} ${CONFIG.tournamentName}. All rights reserved.</p>`;
+  }
 }
 
 function filterSchedule() {
-  const selected = document.getElementById('team-filter').value;
-  document.querySelectorAll('.match-card').forEach(card => {
-    if (!selected) return card.classList.remove('hidden');
-    const teams = card.dataset.teams ? card.dataset.teams.split('|') : [];
-    teams.includes(selected) ? card.classList.remove('hidden') : card.classList.add('hidden');
+  const val = document.getElementById('team-filter')?.value.toLowerCase();
+  const cards = document.querySelectorAll('.match-card');
+  cards.forEach(card => {
+    if (!val) {
+      card.style.display = '';
+      return;
+    }
+    const teams = card.getAttribute('data-teams').toLowerCase();
+    card.style.display = teams.includes(val) ? '' : 'none';
   });
-}
-
-function clearFilter() {
-  document.getElementById('team-filter').value = '';
-  filterSchedule();
-}
-
-function toggleRules() {
-  const btn = document.getElementById('rules-toggle');
-  const body = document.getElementById('rules-body');
-  btn.classList.toggle('open');
-  body.classList.toggle('open');
-}
-
-function toggleUmpires() {
-  const btn = document.getElementById('umpires-toggle');
-  const body = document.getElementById('umpires-body');
-  btn.classList.toggle('open');
-  body.classList.toggle('open');
 }
