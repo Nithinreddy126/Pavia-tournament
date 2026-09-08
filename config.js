@@ -5,9 +5,9 @@
 const CONFIG = {
 
   /* --- Tournament Info --- */
-  tournamentName: "Pavia Cricket Tournament",
+  tournamentName: "Pavia Cricket Tournament - 2nd Edition",
   year: "2026",
-  date: "April 4, 2026",
+  date: "Sep 12, 2026",
   sport: "Cricket",
 
   /* --- Logo: paste a URL or a base64 data URI --- */
@@ -31,28 +31,28 @@ const CONFIG = {
   /* --- Teams (used for filter dropdown) --- */
   teams: [
     "Pavia Falcons",
-    "Underdogs",
-    "MM Blasters",
-    "Novi Ligure",
-    "Torino Thunders",
-    "Bologna"
+    "NAM Team",
+    "BCCI Bologna",
+    "Milan Sforza",
+    "Milan Hawks",
+    "Milan Tridents"
   ],
   
 
   /* --- Group Stage Matches --- */
-  groupMatches: [
-    { time: "7:30", period: "AM", num: "01", team1: "Pavia Falcons",   team2: "Underdogs"       },
-    { time: "8:30", period: "AM", num: "02", team1: "MM Blasters",     team2: "Novi Ligure"     },
-    { time: "9:30", period: "AM", num: "03", team1: "Torino Thunders", team2: "Underdogs"       },
-    { time: "10:30",period: "AM", num: "04", team1: "Bologna",         team2: "MM Blasters"     },
-    { time: "11:30",period: "AM", num: "05", team1: "Pavia Falcons",   team2: "Torino Thunders" },
-    { time: "12:30",period: "PM", num: "06", team1: "Bologna",         team2: "Novi Ligure"     }
+  LeagueMatches: [
+    { time: "7:30", period: "AM", num: "01", team1: "TBC",           team2: "TBC"             },
+    { time: "8:30", period: "AM", num: "02", team1: "TBC",           team2: "TBC"             },
+    { time: "9:30", period: "AM", num: "03", team1: "TBC",           team2: "TBC"             },
+    { time: "10:30",period: "AM", num: "04", team1: "TBC",           team2: "TBC"             },
+    { time: "11:30",period: "AM", num: "05", team1: "TBC",           team2: "TBC"             },
+    { time: "12:30",period: "PM", num: "06", team1: "TBC",           team2: "TBC"             }
   ],
 
   /* --- Knockout Stage Matches --- */
   knockoutMatches: [
-    { time: "1:40", period: "PM", label: "Semi-Final 1",  matchup: "Group A (1st) vs Group B (2nd)", isFinal: false },
-    { time: "2:40", period: "PM", label: "Semi-Final 2",  matchup: "Group B (1st) vs Group A (2nd)", isFinal: false },
+    { time: "1:40", period: "PM", label: "Semi-Final 1",  matchup: "(1st vs 4th)",                    isFinal: false },
+    { time: "2:40", period: "PM", label: "Semi-Final 2",  matchup: "(2nd vs 3rd)",                    isFinal: false },
     { time: "4:00", period: "PM", label: "⚡ Grand Final", matchup: "Winner SF1 vs Winner SF2",       isFinal: true  }
   ],
 
@@ -91,6 +91,7 @@ const CONFIG = {
     "Any ground-specific rules will be communicated to captains before the match.",
     "If a batsman suspects chucking, batsman should step away and not attempt to play the delivery.",
     "The umpire’s decision is final and binding."
+    "Only Standard bats or allowed. Hallow bats and modified bats are not allowed"
     
   ],
 
