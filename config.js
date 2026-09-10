@@ -41,19 +41,19 @@ const CONFIG = {
 
   /* --- Group Stage Matches --- */
   Section3: [
-    { time: "7:30", period: "AM", num: "01", team1: "TBC",           team2: "TBC"             },
-    { time: "8:30", period: "AM", num: "02", team1: "TBC",           team2: "TBC"             },
-    { time: "9:30", period: "AM", num: "03", team1: "TBC",           team2: "TBC"             },
-    { time: "10:30",period: "AM", num: "04", team1: "TBC",           team2: "TBC"             },
-    { time: "11:30",period: "AM", num: "05", team1: "TBC",           team2: "TBC"             },
-    { time: "12:30",period: "PM", num: "06", team1: "TBC",           team2: "TBC"             }
+    { time: "08:00",  period: "AM", num: "01", team1: "Pavia Falcons", team2: "Milan Sforza"    },
+    { time: "09:15",  period: "AM", num: "02", team1: "NAM Team",      team2: "Milan Hawks"     },
+    { time: "10:30",  period: "AM", num: "03", team1: "Milan Sforza",  team2: "BCCI Bologna"    },
+    { time: "11:45",  period: "AM", num: "04", team1: "Pavia Falcons", team2: "Milan Tridents"  },
+    { time: "01:00",  period: "PM", num: "05", team1: "BCCI Bologna",  team2: "Milan Hawks"     },
+    { time: "02:15",  period: "PM", num: "06", team1: "NAM Team",      team2: "Milan Tridents"  }
   ],
 
   /* --- Knockout Stage Matches --- */
   Section4: [
-    { time: "1:40", period: "PM", label: "Semi-Final 1",  matchup: "(1st vs 4th)",                    isFinal: false },
-    { time: "2:40", period: "PM", label: "Semi-Final 2",  matchup: "(2nd vs 3rd)",                    isFinal: false },
-    { time: "4:00", period: "PM", label: "⚡ Grand Final", matchup: "Winner SF1 vs Winner SF2",       isFinal: true  }
+    { time: "TBC", period: "PM", label: "Semi-Final 1",  matchup: "(1st vs 4th)",                    isFinal: false },
+    { time: "TBC", period: "PM", label: "Semi-Final 2",  matchup: "(2nd vs 3rd)",                    isFinal: false },
+    { time: "TBC", period: "PM", label: "⚡ Grand Final", matchup: "Winner SF1 vs Winner SF2",       isFinal: true  }
   ],
 
   /* --- Umpires per match (2 per match, index matches groupMatches) --- */
@@ -90,7 +90,7 @@ const CONFIG = {
     "In case of a major deflection (bounce or low ball), the umpire has the discretion to call it a dead ball.",
     "Any ground-specific rules will be communicated to captains before the match.",
     "If a batsman suspects chucking, batsman should step away and not attempt to play the delivery.",
-    "The umpire’s decision is final and binding."
+    "The umpire’s decision is final and binding.",
     "Only Standard bats or allowed. Hallow bats and modified bats are not allowed"
     
   ],

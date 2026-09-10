@@ -65,12 +65,20 @@ function renderHeader() {
 
 function renderGroups() {
   const panel = document.getElementById('groups-panel');
+  const wrapper = document.getElementById('groups-section');
+  const titleEl = document.getElementById('groups-title');
   if (!panel) return;
 
   if (!isSectionEnabled(0)) {
     panel.innerHTML = '';
+    if (wrapper) wrapper.style.display = 'none';
+    panel.style.display = 'none';
     return;
   }
+
+  if (wrapper) wrapper.style.display = '';
+  panel.style.display = '';
+  if (titleEl) titleEl.textContent = getSectionName(0) || 'Groups';
 
   const groupsData = getSectionData(0, 'Section1') || [];
   panel.innerHTML = groupsData.map(g => `
@@ -88,12 +96,18 @@ function renderGroups() {
 
 function renderTeamFilter() {
   const sel = document.getElementById('team-filter');
+  const bar = document.getElementById('filter-bar');
+  const labelEl = document.getElementById('filter-label');
   if (!sel) return;
 
   if (!isSectionEnabled(1)) {
     sel.innerHTML = '';
+    if (bar) bar.style.display = 'none';
     return;
   }
+
+  if (bar) bar.style.display = '';
+  if (labelEl) labelEl.textContent = getSectionName(1) ? `Filter by ${getSectionName(1)}:` : 'Filter by team:';
 
   const teamsData = getSectionData(1, 'Section2') || [];
   sel.innerHTML = '<option value="">All teams</option>';
@@ -104,14 +118,21 @@ function renderTeamFilter() {
   });
   sel.addEventListener('change', filterSchedule);
 }
+
 function renderGroupMatches() {
   const container = document.getElementById('group-matches');
+  const wrapper = document.getElementById('section3-wrapper');
+  const titleEl = document.getElementById('section3-title');
   if (!container) return;
 
   if (!isSectionEnabled(2)) {
     container.innerHTML = '';
+    if (wrapper) wrapper.style.display = 'none';
     return;
   }
+
+  if (wrapper) wrapper.style.display = '';
+  if (titleEl) titleEl.textContent = getSectionName(2) || 'Group Stage';
 
   const matchesData = getSectionData(2, 'Section3') || [];
   container.innerHTML = matchesData.map(m => `
@@ -134,12 +155,18 @@ function renderGroupMatches() {
 
 function renderKnockoutMatches() {
   const container = document.getElementById('knockout-matches');
+  const wrapper = document.getElementById('section4-wrapper');
+  const titleEl = document.getElementById('section4-title');
   if (!container) return;
 
   if (!isSectionEnabled(3)) {
     container.innerHTML = '';
+    if (wrapper) wrapper.style.display = 'none';
     return;
   }
+
+  if (wrapper) wrapper.style.display = '';
+  if (titleEl) titleEl.textContent = `🏆 ${getSectionName(3) || 'Knockout Stage'}`;
 
   const knockoutData = getSectionData(3, 'Section4') || [];
   container.innerHTML = knockoutData.map(m => `
@@ -157,12 +184,18 @@ function renderKnockoutMatches() {
 
 function renderNotes() {
   const container = document.getElementById('notes-section');
+  const wrapper = document.getElementById('section6-wrapper');
+  const titleEl = document.getElementById('section6-title');
   if (!container) return;
 
   if (!isSectionEnabled(5)) {
     container.innerHTML = '';
+    if (wrapper) wrapper.style.display = 'none';
     return;
   }
+
+  if (wrapper) wrapper.style.display = '';
+  if (titleEl) titleEl.textContent = getSectionName(5) || 'Notes';
 
   const notesData = getSectionData(5, 'Section6') || [];
   container.innerHTML = notesData.map(n => `
@@ -174,12 +207,18 @@ function renderNotes() {
 
 function renderRules() {
   const container = document.getElementById('rules-body');
+  const wrapper = document.getElementById('section7-wrapper');
+  const titleEl = document.getElementById('section7-title');
   if (!container) return;
 
   if (!isSectionEnabled(6)) {
     container.innerHTML = '';
+    if (wrapper) wrapper.style.display = 'none';
     return;
   }
+
+  if (wrapper) wrapper.style.display = '';
+  if (titleEl) titleEl.textContent = `📋 ${getSectionName(6) || 'Match Rules & Regulations'}`;
 
   const rulesData = getSectionData(6, 'Section7') || [];
   container.innerHTML = rulesData.map((r, i) => `
@@ -191,12 +230,18 @@ function renderRules() {
 
 function renderUmpires() {
   const container = document.getElementById('umpires-body');
+  const wrapper = document.getElementById('section5-wrapper');
+  const titleEl = document.getElementById('section5-title');
   if (!container) return;
 
   if (!isSectionEnabled(4)) {
     container.innerHTML = '';
+    if (wrapper) wrapper.style.display = 'none';
     return;
   }
+
+  if (wrapper) wrapper.style.display = '';
+  if (titleEl) titleEl.textContent = `🧑‍⚖️ ${getSectionName(4) || 'Match Umpires'}`;
 
   const groupMatches = getSectionData(2, 'Section3') || [];
   const knockoutMatches = getSectionData(3, 'Section4') || [];
@@ -319,6 +364,24 @@ function toggleCustomSection(idx) {
       btn.classList.toggle('open');
     }
   }
+}
+
+// Added: was referenced by onclick="toggleRules()" in the HTML but never defined,
+// so the rules accordion could never open. Mirrors toggleCustomSection's pattern.
+function toggleRules() {
+  const body = document.getElementById('rules-body');
+  const btn = document.getElementById('rules-toggle');
+  if (body) body.classList.toggle('open');
+  if (btn) btn.classList.toggle('open');
+}
+
+// Added: was referenced by onclick="toggleUmpires()" in the HTML but never defined,
+// so the umpires accordion could never open. Mirrors toggleCustomSection's pattern.
+function toggleUmpires() {
+  const body = document.getElementById('umpires-body');
+  const btn = document.getElementById('umpires-toggle');
+  if (body) body.classList.toggle('open');
+  if (btn) btn.classList.toggle('open');
 }
 
 function renderFooter() {

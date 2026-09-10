@@ -21,17 +21,17 @@
     <div class="header" id="header"></div>
 
     <!-- GROUPS PANEL -->
-    <div class="section">
+    <div class="section" id="groups-section">
       <div class="section-header">
-        <div class="section-tag">Groups</div>
+        <div class="section-tag" id="groups-title">Groups</div>
         <div class="section-line"></div>
       </div>
     </div>
     <div class="groups-panel" id="groups-panel"></div>
 
     <!-- FILTER BAR -->
-    <div class="filter-bar">
-      <span class="filter-label">Filter by team:</span>
+    <div class="filter-bar" id="filter-bar">
+      <span class="filter-label" id="filter-label">Filter by team:</span>
       <select class="filter-select" id="team-filter">
         <option value="">All teams</option>
       </select>
@@ -39,39 +39,45 @@
     </div>
 
     <!-- GROUP STAGE -->
-    <div class="section">
+    <div class="section" id="section3-wrapper">
       <div class="section-header">
-        <div class="section-tag">Group Stage</div>
+        <div class="section-tag" id="section3-title">Group Stage</div>
         <div class="section-line"></div>
       </div>
       <div id="group-matches"></div>
     </div>
 
     <!-- KNOCKOUT STAGE -->
-    <div class="section">
+    <div class="section" id="section4-wrapper">
       <div class="section-header">
-        <div class="section-tag knockout">🏆 Knockout Stage</div>
+        <div class="section-tag knockout" id="section4-title">🏆 Knockout Stage</div>
         <div class="section-line"></div>
       </div>
       <div id="knockout-matches"></div>
     </div>
 
     <!-- NOTES -->
-    <div class="notes-section" id="notes-section"></div>
+    <div class="section" id="section6-wrapper">
+      <div class="section-header">
+        <div class="section-tag" id="section6-title">Notes</div>
+        <div class="section-line"></div>
+      </div>
+      <div class="notes-section" id="notes-section"></div>
+    </div>
 
     <!-- RULES ACCORDION -->
-    <div class="rules-section">
+    <div class="rules-section" id="section7-wrapper">
       <button class="rules-toggle" id="rules-toggle" onclick="toggleRules()">
-        <span>📋 Match Rules &amp; Regulations</span>
+        <span id="section7-title">📋 Match Rules &amp; Regulations</span>
         <span class="rules-toggle-icon">▼</span>
       </button>
       <div class="rules-body" id="rules-body"></div>
     </div>
 
     <!-- UMPIRES ACCORDION -->
-    <div class="umpires-section">
+    <div class="umpires-section" id="section5-wrapper">
       <button class="umpires-toggle" id="umpires-toggle" onclick="toggleUmpires()">
-        <span>🧑‍⚖️ Match Umpires</span>
+        <span id="section5-title">🧑‍⚖️ Match Umpires</span>
         <span class="umpires-toggle-icon">▼</span>
       </button>
       <div class="umpires-body" id="umpires-body"></div>
