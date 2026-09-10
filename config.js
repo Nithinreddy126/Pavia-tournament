@@ -100,7 +100,7 @@ const CONFIG = {
      {Section: "Section2",  Name: "teams", isEnabled: true},
      {Section: "Section3",  Name: "LeagueMatches", isEnabled: true},
      {Section: "Section4",  Name: "knockoutMatches", isEnabled: true},
-     {Section: "Section5",  Name: "umpires", isEnabled: true},
+     {Section: "Section5",  Name: "umpires", isEnabled: false},
      {Section: "Section6",  Name: "notes", isEnabled: true},
      {Section: "Section7",  Name: "rules", isEnabled: true},
   ],
