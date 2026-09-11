@@ -1,0 +1,4 @@
+# IDEs and editors
+.vscode/
+.vscode-test/
+*.code-workspace

@@ -403,3 +403,9 @@ function filterSchedule() {
     card.style.display = teams.includes(val) ? '' : 'none';
   });
 }
+
+function clearFilter() {
+  const select = document.getElementById('team-filter');
+  if (select) select.value = '';
+  filterSchedule();
+}
