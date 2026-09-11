@@ -84,7 +84,6 @@ const CONFIG = {
     "A free hit will be awarded for leg-no-balls and waist-height no-balls.",
     "Only one bouncer per over is permitted, A second bouncer in the same over will be called a wide.No head-height no-ball rule applies.",
     "No leg byes, no byes — only overthrows are allowed.",
-    "Each team must submit a 10-player squad, and the playing 8 must be selected only from this squad.",
     "Once finalized, the playing 8 cannot be changed; no impact player rule applies, only injury-based substitutions are allowed.",
     "If the ball hits the electric line, pole, or its base, it will be declared a dead ball.",
     "In case of a major deflection (bounce or low ball), the umpire has the discretion to call it a dead ball.",
