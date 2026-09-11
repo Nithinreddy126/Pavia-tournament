@@ -59,12 +59,12 @@ const CONFIG = {
   /* --- Umpires per match (2 per match, index matches groupMatches) --- */
   /* Set to ["Yet to be confirmed", "Yet to be confirmed"] for all until known */
   Section5: [
-    ["Yet to be confirmed", "Yet to be confirmed"],
-    ["Yet to be confirmed", "Yet to be confirmed"],
-    ["Yet to be confirmed", "Yet to be confirmed"],
-    ["Yet to be confirmed", "Yet to be confirmed"],
-    ["Yet to be confirmed", "Yet to be confirmed"],
-    ["Yet to be confirmed", "Yet to be confirmed"],
+    ["Nithin", "Teja"],
+    ["Ravi", "Somu"],
+    ["Sai Kiran", "Shreyas"],
+    ["Nithin", "Teja"],
+    ["Somu", "Ravi"],
+    ["Shreyas", "Sai Kiran"],
     // knockouts:
     ["Yet to be confirmed", "Yet to be confirmed"],
     ["Yet to be confirmed", "Yet to be confirmed"],
@@ -99,7 +99,7 @@ const CONFIG = {
      {Section: "Section2",  Name: "teams", isEnabled: true},
      {Section: "Section3",  Name: "LeagueMatches", isEnabled: true},
      {Section: "Section4",  Name: "knockoutMatches", isEnabled: true},
-     {Section: "Section5",  Name: "umpires", isEnabled: false},
+     {Section: "Section5",  Name: "umpires", isEnabled: true},
      {Section: "Section6",  Name: "notes", isEnabled: true},
      {Section: "Section7",  Name: "rules", isEnabled: true},
   ],
